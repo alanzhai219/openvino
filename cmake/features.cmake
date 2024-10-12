@@ -46,6 +46,14 @@ ov_dependent_option (ENABLE_ONEDNN_FOR_GPU "Enable oneDNN with GPU support" ${EN
 ov_dependent_option (ENABLE_INTEL_NPU "NPU plugin for OpenVINO runtime" ON "X86_64;WIN32 OR LINUX" OFF)
 ov_dependent_option (ENABLE_INTEL_NPU_INTERNAL "NPU plugin internal components for OpenVINO runtime" ON "ENABLE_INTEL_NPU" OFF)
 
+if(X86_64)
+    set(ENABLE_INTEL_XPU_DEFAULT ON)
+else()
+    set(ENABLE_INTEL_XPU_DEFAULT OFF)
+endif()
+
+ov_dependent_option (ENABLE_INTEL_XPU "XPU SYCL-based plugin for OpenVINO Runtime" ${ENABLE_INTEL_XPU_DEFAULT} "X86_64 OR AARCH64;NOT APPLE;NOT WINDOWS_STORE;NOT WINDOWS_PHONE" OFF)
+
 ov_option (ENABLE_DEBUG_CAPS "enable OpenVINO debug capabilities at runtime" OFF)
 ov_dependent_option (ENABLE_NPU_DEBUG_CAPS "enable NPU debug capabilities at runtime" ON "ENABLE_DEBUG_CAPS;ENABLE_INTEL_NPU" OFF)
 ov_dependent_option (ENABLE_GPU_DEBUG_CAPS "enable GPU debug capabilities at runtime" ON "ENABLE_DEBUG_CAPS;ENABLE_INTEL_GPU" OFF)
